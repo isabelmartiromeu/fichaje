@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Módulo Fichajes
+title: Módulo Fichajes SGE
 email: lasillera74@gmail.com
 description: Descripción del Módulo Fichajes en Odoo.
 baseurl: "/fichajes"" # the subpath of your site, e.g. /blog
