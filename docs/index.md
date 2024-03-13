@@ -4,6 +4,11 @@ layout: default
 # Modulo Fichaje
 ## Descripción corta. 
 Este módulo se utilizará para controlar el fichaje de los trabajadores de la empresa y tener en cuenta las horas trabajadas al día para generar horas de libre disposición. Controlando además las incidencias que se puedan generar.
+
+
+ESTO ES UNA PRUEBA
+
+
 ## Descripción detallada de todas las funcionalidades a cubrir.
 A través de este módulo se pretende llevar un control del registro de fichajes de las entradas y salidas de los trabajadores a la empresa cada día, para ello se deberá tener en cuenta los siguientes requisitos:
 Cuando el trabajador entra con su usuario a la aplicación Odoo, se realiza de forma automática el fichaje de entrada. Además, se muestra un mensaje en el que se muestra la información sobre el fichaje: día y hora de entrada. La pantalla por defecto que se carga en pantalla es la de los fichajes.
