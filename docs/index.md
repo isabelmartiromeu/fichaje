@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-# Modulo Fichaje:
+# - Modulo Fichaje -
 ## Descripción corta. 
 Este módulo se utilizará para controlar el fichaje de los trabajadores de la empresa y tener en cuenta las horas trabajadas al día para generar horas de libre disposición. Controlando además las incidencias que se puedan generar.
 
