@@ -15,6 +15,48 @@
     </record>
 -->
 
+
+
+    <record model="ir.ui.view" id="fichajes.fichaje_window_tree">
+      <field name="name">Lista de fichajes</field>
+      <field name="model">fichajes.fichaje</field>
+      <field name="arch" type="xml">
+        <tree decoration-info="age&gt;30">
+          <field name="codigo"/>
+          <field name="fecha"/>
+          <field name="entrada"/>
+          <field name="salida"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="fichajes.bolsahoras_window_tree">
+      <field name="name">Lista de la bolsa de horas</field>
+      <field name="model">fichajes.bolsahoras</field>
+      <field name="arch" type="xml">
+        <tree decoration-info="age&gt;30">
+          <field name="codigo"/>
+          <field name="numerohoras"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="fichajes.peticionhoras_window_tree">
+      <field name="name">Petición horas</field>
+      <field name="model">fichajes.peticionhoras</field>
+      <field name="arch" type="xml">
+        <tree decoration-info="age&gt;30">
+          <field name="fecha"/>
+          <field name="horacomienzo"/>
+          <field name="numerohoras"/>
+          <field name="estado" attrs="{'invisible': ['|',('type','=','PEN'),('type','=','APR'),('type','=','RECH'),('type','=','DISF'),('type','=','POST')]}"/>
+
+        </tree>
+      </field>
+    </record>
+
     <!-- actions opening views on models -->
 
     <record model="ir.actions.act_window" id="fichajes.action_window">
@@ -23,6 +65,23 @@
       <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="fichajes.action_window_fichaje">
+      <field name="name">Fichaje diario</field>
+      <field name="res_model">fichajes.fichaje</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="fichajes.action_window_bolsahoras">
+      <field name="name">Bolsa de horas de libre disposición</field>
+      <field name="res_model">fichajes.bolsahoras</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="fichajes.action_window_peticionhoras">
+      <field name="name">Petición horas</field>
+      <field name="res_model">fichajes.peticionhoras</field>
+      <field name="view_mode">tree,form</field>
+    </record>
 
     <!-- server action to the one above -->
 <!--
@@ -45,15 +104,24 @@
     <menuitem name="Fichaje" id="fichajes.menu_root"/>
 
     <!-- menu categories -->
-
-    <menuitem name="Listado fichajes" id="fichajes.menu_1" parent="fichajes.menu_root"/>
 <!--
+    <menuitem name="Fichajes" id="fichajes.menu_1" parent="fichajes.menu_root"/>
+
     <menuitem name="Menu 2" id="fichajes.menu_2" parent="fichajes.menu_root"/>
 -->
     <!-- actions -->
 
-    <menuitem name="List" id="fichajes.menu_1_list" parent="fichajes.menu_1"
-              action="fichajes.action_window"/>
+    <menuitem name="Fichajes" id="fichajes.fichaje_list" parent="fichajes.menu_1"
+              action="fichajes.action_window_fichaje"/>
+
+
+    <menuitem name="Bolsa horas" id="modulo_tc.bolsahoras_list" parent="fichajes.menu_1"
+              action="fichajes.action_window_bolsahoras"/>
+    <menuitem name="Petición horas" id="modulo_tc.peticionhoras_list" parent="fichajes.menu_1"
+              action="fichajes.action_window_peticionhoras"/>
+
+
+
 <!--
     <menuitem name="Server to list" id="fichajes" parent="fichajes.menu_2"
               action="fichajes.action_server"/>
