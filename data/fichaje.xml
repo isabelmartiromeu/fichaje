@@ -1,0 +1,19 @@
+<odoo>
+  <data >
+    <!-- Fichajes -->
+    <record model="fichajes.fichaje" id="fichajes.fichaje_25_03_2024">
+      <field name="codigo">1</field>
+      <field name="fecha">2024-03-25</field>
+      <field name="entrada">8</field>
+      <field name="salida">17:30</field> 
+    </record>
+
+    <record model="fichajes.fichaje" id="fichajes.fichaje_22_03_2024">
+      <field name="codigo">2</field>
+      <field name="fecha">2024-03-22</field>
+      <field name="entrada">8</field>
+      <field name="salida">17:30</field>
+    </record>
+
+  </data>
+</odoo>
