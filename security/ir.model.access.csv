@@ -1,5 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_fichajes_fichaje,fichajes.fichaje,model_fichajes_fichaje,base.group_user,1,1,1,1
-access_fichajes_bolsahoras,fichajes.bolsahoras,model_fichajes_bolsahoras,base.group_user,1,1,1,1
-access_fichajes_empleado,fichajes.empleado,model_fichajes_empleado,base.group_user,1,1,1,1
-access_fichajes_peticionhoras,fichajes.peticionhoras,model_fichajes_peticionhoras,base.group_user,1,1,1,1
+access_fichaje_registro_fichaje,fichaje.registro_fichaje,model_fichaje_registro_fichaje,base.group_user,1,1,1,1
+access_fichaje_bolsa_horas,fichaje.bolsa_horas,model_fichaje_bolsa_horas,base.group_user,1,1,1,1
+access_fichaje_empleado,fichaje.empleado,model_fichaje_empleado,base.group_user,1,1,1,1
+access_fichaje_peticion_horas,fichaje.peticion_horas,model_fichaje_peticion_horas,base.group_user,1,1,1,1
