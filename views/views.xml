@@ -26,34 +26,6 @@
       <field name="res_model">fichaje.peticion_horas</field>
       <field name="view_mode">tree,form</field>
     </record>
-<!--
-    <record model="ir.actions.act_window" id="fichaje.action_window_bolsahoras">
-      <field name="name">Bolsa de horas de libre disposición</field>
-      <field name="res_model">fichajes.bolsahoras</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-
-    <record model="ir.actions.act_window" id="fichaje.action_window_peticionhoras">
-      <field name="name">Petición horas</field>
-      <field name="res_model">fichajes.peticionhoras</field>
-      <field name="view_mode">tree,form</field>
-    </record>
--->
-    <!-- server action to the one above -->
-<!-- YA ESTABA COMENTADO
-    <record model="ir.actions.server" id="fichaje.action_server">
-      <field name="name">fichajes server</field>
-      <field name="model_id" ref="model_fichajes_fichaje"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
-      </field>
-    </record>
--->
 
     <!-- Top menu item -->
     <menuitem name="Fichaje" id="fichaje.menu_root"/>
@@ -73,18 +45,5 @@
 
     <menuitem name="Petición bolsa" id="fichaje.peticion_horas_list" parent="fichaje.menu_1"
               action="fichaje.action_window_peticion_horas"/>
-<!-- YA ESTABA COMENTADO
-    <menuitem name="Server to list" id="fichajes" parent="fichajes.menu_2"
-              action="fichajes.action_server"/>
--->
-
-<!-- 
-  Fichar
-  Listado fichajes
-  Bolsa horas
-  Peticiones
-  Incidencias
-  Informes
--->
   </data>
 </odoo>
