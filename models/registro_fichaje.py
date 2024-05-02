@@ -12,10 +12,9 @@ class registro_fichaje(models.Model):
     _name = 'fichaje.registro_fichaje'
     _description = 'fichaje.registro_fichaje'
 
-
-    code = fields.Char(string='Código', required = True)
+    # code = fields.Char(string='Código', required = True)
     fecha = fields.Date(string='Fecha', required = True,default=date.today(),readonly=True) #Debe tener la fecha de cuando se entra
-    hora_entrada = fields.Char(string="Hora de entrada", required = True) #Debe tener la hora de cuando se entra 
+    hora_entrada = fields.Char(string="Hora de entrada",readonly=True, required = True, default=lambda self:fields.Datetime.now().strftime('%H:%M:%S')) #Debe tener la hora de cuando se entra 
 
     hora_salida = fields.Char(string='Hora de salida') #No se debe poder rellenar
     
@@ -33,6 +32,7 @@ class registro_fichaje(models.Model):
     ]
 
 
+
     @api.model
     def create(self, vals):
         if 'hora_entrada' not in vals:
@@ -40,15 +40,18 @@ class registro_fichaje(models.Model):
         return super(registro_fichaje, self).create(vals)
     
 
-    @api.onchange('hora_salida')
-    def _onchange_hora_salida(self):
-        if self.hora_entrada and self.hora_salida:
-            hora_entrada = datetime.strptime(self.hora_entrada, '%H:%M:%S')
-            hora_salida = datetime.strptime(self.hora_salida, '%H:%M:%S')
-            horas_trabajadas = hora_salida - hora_entrada - timedelta(hours=1)  # Restar una hora
-            if horas_trabajadas.total_seconds() / 3600 > 8:
-                # Incrementar el campo 'name' del modelo 'bolsa_horas', que guarda el número de horas
-                # de libre disposición
-                bolsa_horas = self.env['fichaje.bolsa_horas'].search([('empleado_id', '=', self.empleado_id.id)])
-                # Redondea hacia abajo el número de más trabajadas.
-                bolsa_horas.name +=  math.floor(horas_trabajadas) - 8
+    # @api.onchange('hora_salida')
+    # def _onchange_hora_salida(self):
+    #     if self.hora_entrada and self.hora_salida:
+    #         hora_entrada = datetime.strptime(self.hora_entrada, '%H:%M:%S')
+    #         hora_salida = datetime.strptime(self.hora_salida, '%H:%M:%S')
+    #         horas_trabajadas = hora_salida - hora_entrada - timedelta(hours=1)  # Restar una hora
+    #         if horas_trabajadas.total_seconds() / 3600 > 8:
+    #             # Incrementar el campo 'name' del modelo 'bolsa_horas', que guarda el número de horas
+    #             # de libre disposición
+    #             bolsa_horas = self.env['fichaje.bolsa_horas'].search([('empleado_id', '=', self.empleado_id.id)])
+    #             # Redondea hacia abajo el número de más trabajadas.
+    #             bolsa_horas.name +=  math.floor(horas_trabajadas) - 8
+
+    def crea_fichaje_salida(self):
+        self.hora_salida = fields.Datetime.now().strftime('%H:%M:%S')

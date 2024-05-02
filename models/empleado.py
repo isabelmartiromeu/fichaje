@@ -50,7 +50,7 @@ class empleado(models.Model):
 
      # empleado [N] : bolsa_horas [1]
      la_bolsa_id = fields.Many2one('fichaje.bolsa_horas')
-     la_bolsa_name = fields.Char(related = 'la_bolsa_id.code')
+     la_bolsa_name = fields.Char(related = 'la_bolsa_id.code') 
 
 
 
