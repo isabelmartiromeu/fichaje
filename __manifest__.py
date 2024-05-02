@@ -28,6 +28,7 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        #'views/fichaje_view.xml',
         #'data/fichaje.xml',
     ],
     # only loaded in demonstration mode

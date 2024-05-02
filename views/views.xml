@@ -9,6 +9,26 @@
       <field name="view_mode">tree,form</field>
     </record>
 
+
+    <!-- <record model="ir.ui.view" id="fichaje.view_form_registro_fichaje">
+        <field name="name">Fichaje Form</field>
+        <field name="model">fichaje.registro_fichaje</field>
+        <field name="arch" type="xml">
+            <form string="Fichaje">
+                <field name="code"/>
+                <field name="fecha"/>
+                <field name="hora_entrada"/>
+                <field name="hora_salida"/>
+                <field name="empleado_id"/>
+                <field name="empleado_name"/>
+                <footer>
+                    <button string="Fichar salida" name="%(fichaje.action_window_fichar_salida)d" type="action"/>
+                </footer>
+            </form>
+        </field>
+    </record> -->
+
+
     <record model="ir.actions.act_window" id="fichaje.action_window_bolsa_horas">
       <field name="name">Bolsa horas</field>
       <field name="res_model">fichaje.bolsa_horas</field>
@@ -26,6 +46,9 @@
       <field name="res_model">fichaje.peticion_horas</field>
       <field name="view_mode">tree,form</field>
     </record>
+
+
+
 
     <!-- Top menu item -->
     <menuitem name="Fichaje" id="fichaje.menu_root"/>

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from datetime import date
+from datetime import date, timedelta
 from odoo import models, fields, api
-import time
+from datetime import datetime, timedelta
+import math
 
 class registro_fichaje(models.Model):
     """
@@ -23,7 +24,7 @@ class registro_fichaje(models.Model):
      # empleado [1] : registro_fichaje [N]
 
     empleado_id = fields.Many2one('fichaje.empleado')
-    empleado_name = fields.Char(related = 'empleado_id.name')
+    name = fields.Char(related = 'empleado_id.name')
     
 
     _sql_constraints = [
@@ -37,3 +38,17 @@ class registro_fichaje(models.Model):
         if 'hora_entrada' not in vals:
             vals['hora_entrada'] = fields.Datetime.now().strftime('%H:%M:%S')
         return super(registro_fichaje, self).create(vals)
+    
+
+    @api.onchange('hora_salida')
+    def _onchange_hora_salida(self):
+        if self.hora_entrada and self.hora_salida:
+            hora_entrada = datetime.strptime(self.hora_entrada, '%H:%M:%S')
+            hora_salida = datetime.strptime(self.hora_salida, '%H:%M:%S')
+            horas_trabajadas = hora_salida - hora_entrada - timedelta(hours=1)  # Restar una hora
+            if horas_trabajadas.total_seconds() / 3600 > 8:
+                # Incrementar el campo 'name' del modelo 'bolsa_horas', que guarda el número de horas
+                # de libre disposición
+                bolsa_horas = self.env['fichaje.bolsa_horas'].search([('empleado_id', '=', self.empleado_id.id)])
+                # Redondea hacia abajo el número de más trabajadas.
+                bolsa_horas.name +=  math.floor(horas_trabajadas) - 8

@@ -1,0 +1,17 @@
+<!-- <odoo>
+    <data>
+
+        <!-- Definición de la nueva acción -->
+        <record model="ir.actions.act_window" id="fichaje.action_window_fichar_salida">
+            <field name="name">Fichar salida</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fichaje.registro_fichaje</field>
+            <field name="view_mode">form</field>
+
+            <field name="view_id" ref="fichaje.action_window_registro_fichaje"/>
+            <field name="context">{'default_hora_salida': fields.Datetime.now()}</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo> -->

@@ -21,11 +21,11 @@ class empleado(models.Model):
      name = fields.Char(string = 'Nombre', required = True)
      _order = 'name'
      
-     dni = fields.Char(string = 'DNI', size = 9)
+     dni = fields.Char(string = 'DNI', size = 9, required = True)
 
      fecha_nacimiento = fields.Date(string = 'Fecha nacimiento', required = True)
      direccion = fields.Char(string = 'Direccion')
-     movil = fields.Char(string = 'Movil', size = 9)
+     movil = fields.Char(string = 'Movil', size = 9, required = True)
      fecha_comienzo_empresa =  fields.Date(string = 'Fecha comienzo en empresa')
 
 
