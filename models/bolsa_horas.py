@@ -14,7 +14,7 @@ class bolsa_horas(models.Model):
 
 
     code = fields.Char(required = True, string='Código empleado', store=True)
-    name = fields.Integer(string='Horas de libre disposición')
+    horas = fields.Integer(string='Horas de libre disposición')
 
 
      # Un empleado tiene una bolsa de horas y una bolsa de horas pertenece a un solo empleado

@@ -1,10 +1,11 @@
 <odoo>
   <data>
+    <!-- Registro de fichajes -->
     <record model="ir.ui.view" id="fichaje.tree_registro_fichaje">
       <field name="name">Listado de fichajes</field>
       <field name="model">fichaje.registro_fichaje</field>
       <field name="arch" type="xml">
-        <tree string="Fichaje">
+        <tree string="Fichaje" limit="20">
             <field name="fecha"/>
             <field name="hora_entrada"/>
             <field name="hora_salida"/>
@@ -30,6 +31,105 @@
       </field>
     </record>
 
+    <!-- Bolsa de horas de libre disposición -->
+
+    <record model="ir.ui.view" id="fichaje.tree_bolsa_horas">
+      <field name="name">Bolsa de horas de libre disposición</field>
+      <field name="model">fichaje.bolsa_horas</field>
+      <field name="arch" type="xml">
+        <tree string="Bolsa" >
+            <field name="code" />
+            <field name="horas" />
+            <field name="empleado_id" />
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="fichaje.form_bolsa_horas">
+      <field name="name">Bolsa de horas de libre disposición</field>
+      <field name="model">fichaje.bolsa_horas</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="code"/>
+            <field name="horas"/>
+            <field name="empleado_id"/>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- Empleados -->
+
+    <record model="ir.ui.view" id="fichaje.tree_empleado">
+      <field name="name">Listado de empleados</field>
+      <field name="model">fichaje.empleado</field>
+      <field name="arch" type="xml">
+        <tree string="Empleado" >
+            <field name="code" />
+            <field name="name" />
+            <field name="dni" />
+            <field name="fecha_nacimiento" />
+            <field name="movil" />
+            <field name="fecha_comienzo_empresa" />
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="fichaje.form_empleado">
+      <field name="name">Listado de empleados</field>
+      <field name="model">fichaje.empleado</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="code" />
+            <field name="name" />
+            <field name="dni" />
+            <field name="direccion" />
+            <field name="fecha_nacimiento" />
+            <field name="movil" />
+            <field name="fecha_comienzo_empresa" />
+            <field name="horas_libre_disposicion" />
+            
+          </group>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- Petición de horas -->
+
+    <record model="ir.ui.view" id="fichaje.tree_peticion_horas">
+      <field name="name">Listado de peticion de horas</field>
+      <field name="model">fichaje.peticion_horas</field>
+      <field name="arch" type="xml">
+        <tree string="Empleado" >
+            <field name="fecha_disfrute" />
+            <field name="hora_disfrute" />
+            <field name="numero_horas" />
+            <field name="estado" />
+            <field name="empleado_name" />
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="fichaje.form_peticion_horas">
+      <field name="name">Listado de peticion de horas</field>
+      <field name="model">fichaje.peticion_horas</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="fecha_disfrute" />
+            <field name="hora_disfrute" />
+            <field name="numero_horas" />
+            <field name="estado" />
+            <field name="empleado_name" />
+            
+          </group>
+        </form>
+      </field>
+    </record>
+
     <!-- actions opening views on models -->
 
     <record model="ir.actions.act_window" id="fichaje.action_window_registro_fichaje">
@@ -37,28 +137,6 @@
       <field name="res_model">fichaje.registro_fichaje</field>
       <field name="view_mode">tree,form</field>
     </record>
-
-
-
-
-    <!-- <record model="ir.ui.view" id="fichaje.view_form_registro_fichaje">
-        <field name="name">Fichaje Form</field>
-        <field name="model">fichaje.registro_fichaje</field>
-        <field name="arch" type="xml">
-            <form string="Fichaje">
-                <field name="code"/>
-                <field name="fecha"/>
-                <field name="hora_entrada"/>
-                <field name="hora_salida"/>
-                <field name="empleado_id"/>
-                <field name="empleado_name"/>
-                <footer>
-                    <button string="Fichar salida" name="%(fichaje.action_window_fichar_salida)d" type="action"/>
-                </footer>
-            </form>
-        </field>
-    </record> -->
-
 
     <record model="ir.actions.act_window" id="fichaje.action_window_bolsa_horas">
       <field name="name">Bolsa horas</field>

@@ -47,10 +47,12 @@ class empleado(models.Model):
      # esto se simula con:
      # empleado [1] : bolsa_horas [N]
      bolsa_hora_ids = fields.One2many('fichaje.bolsa_horas','empleado_id')
-
+     horas_libre_disposicion = fields.Integer(string='Horas de libre disposición', related='bolsa_hora_ids.horas', store=False)
+     
      # empleado [N] : bolsa_horas [1]
      la_bolsa_id = fields.Many2one('fichaje.bolsa_horas')
      la_bolsa_name = fields.Char(related = 'la_bolsa_id.code') 
+
 
 
 
