@@ -109,11 +109,12 @@
             <field name="numero_horas" />
             <field name="estado" />
             <field name="empleado_name" />
+            <field name="email_responsable" />
         </tree>
       </field>
     </record>
 
-    <record model="ir.ui.view" id="fichaje.form_peticion_horas">
+    <!-- <record model="ir.ui.view" id="fichaje.form_peticion_horas">
       <field name="name">Listado de peticion de horas</field>
       <field name="model">fichaje.peticion_horas</field>
       <field name="arch" type="xml">
@@ -124,11 +125,11 @@
             <field name="numero_horas" />
             <field name="estado" />
             <field name="empleado_name" />
-            
+            <field name="email_responsable" />
           </group>
         </form>
       </field>
-    </record>
+    </record> -->
 
     <!-- actions opening views on models -->
 

@@ -1,11 +1,11 @@
 # # -*- coding: utf-8 -*-
 
-#from datetime import timedelta
-#from datetime import datetime
 #import datetime
 from odoo import models, fields, api
-from odoo.exceptions import ValidationError
-from odoo.tools import date_utils
+#from odoo.exceptions import ValidationError
+#from odoo.tools import date_utils
+from odoo.exceptions import ValidationError, UserError
+from odoo.addons.base.models.ir_mail_server import MailDeliveryException
 
 class peticion_horas(models.Model):
     """
@@ -31,8 +31,12 @@ class peticion_horas(models.Model):
     numero_horas = fields.Integer(string='Número de horas', required = True)
     
             
-    estado= fields.Selection([('pendiente','Pendiente'),('aprobada','Aprobada'),('rechazada','Rechazada'),
-                            ('disfrutada','Disfrutada'), ('pospuesta','Pospuesta')]) 
+    estado= fields.Selection([('pendiente','Pendiente'),
+        ('aprobada','Aprobada'),
+        ('rechazada','Rechazada'),
+        ('disfrutada','Disfrutada'), 
+        ('pospuesta','Pospuesta')
+        ],default='pendiente') 
 
      # Parte de la relación con Petición de horas
      # Un empleado puede realizar muchas peticiones de horas de libre disposición,
@@ -42,48 +46,105 @@ class peticion_horas(models.Model):
     empleado_id = fields.Many2one('fichaje.empleado')
     empleado_name = fields.Char(related = 'empleado_id.name')
 
-    # _sql_constraints = [
-    #     ('fecha_empleado_disfrute_uniq_peticion_horas', 'unique(fecha_disfrute,empleado_id)', 'No se puede elegir el mismo día de disfrute'),
-    # ]
+    email_responsable = fields.Char(string="Email responsable",default="isamarrom@alu.edu.gva.es",readonly=True)
+
+
+    # @api.onchange('fecha_disfrute')   #FUNCIONA
+    # def _onchange_fecha_disfrute(self):
+    #     for record in self:
+    #         if record.fecha_disfrute:
+    #             if record.fecha_disfrute.weekday() >= 5:  # sábado (5) o domingo (6)
+    #                 record.fecha_disfrute = False
+    #                 return {
+    #                     'warning': {
+    #                         'title': "Advertencia",
+    #                         'message': "La fecha debe ser de un día laborable",
+    #                         'type': 'notification'  # Cambia el tipo a 'notification' si quieres que sea permanente
+    #                     }
+    #                 }
 
     @api.onchange('fecha_disfrute')
     def _onchange_fecha_disfrute(self):
         for record in self:
             if record.fecha_disfrute:
-                if record.fecha_disfrute.weekday() >= 5:  # sábado (5) o domingo (6)
+                # Verifica si la fecha es un sábado (5) o domingo (6)
+                if record.fecha_disfrute.weekday() >= 5:
                     record.fecha_disfrute = False
                     return {
                         'warning': {
                             'title': "Advertencia",
                             'message': "La fecha debe ser de un día laborable",
-                            'type': 'notification'  # Cambia el tipo a 'notification' si quieres que sea permanente
+                            'type': 'notification' 
+                        }
+                    }
+                print("Fecha de disfrute: " + record.fecha_disfrute.strftime('%Y-%m-%d'))
+                
+                # Verifica si la fecha es anterior a la fecha actual
+                if record.fecha_disfrute < fields.Datetime.now().date():
+                    record.fecha_disfrute = False
+                    return {
+                        'warning': {
+                            'title': "Advertencia",
+                            'message': "La fecha no puede ser anterior a la actual",
+                            'type': 'notification'  
                         }
                     }
 
-    ###### GITHUB
+    @api.model
+    def create(self, vals):
+    # Se crea un registro 
+        record = super(peticion_horas, self).create(vals)
+        if record.email_responsable:
+            try:
+                mail = self.env['mail.mail'].create({
+                    'email_from': 'isamarrom@alu.edu.gva.es',
+                    'email_to': record.email_responsable,
+                    'subject': 'Nuevo registro de petición de horas de libre disposición',
+                    'body_html': '<p>Se ha creado una nueva petición de horas de libre disposición del empleado: %s</p>, se espera aprobación' % record.empleado_id,
+                })
+                mail.send()
+            except MailDeliveryException as e:
+                raise UserError("Error al enviar el correo electrónico: %s" % str(e))
+            except Exception as e:
+                raise UserError("Se produjo un error inesperado al enviar el correo electrónico: %s" % str(e))
+        return record
 
-    # @api.model
-    # def _get_next_working_day(self, date):
-    #     # Realizará la modificación en la bolsa el día siguiente laborable de la fecha de disfrute
-    #     # Retorna el siguiente día laborable a partir de la fecha dada
-    #     next_day = date + timedelta(days=1)
-    #     while next_day.weekday() in [5, 6]:  # 5 y 6 corresponden al sábado y domingo
-    #         next_day += timedelta(days=1)
-    #     return next_day
+    def write(self, vals):
+    # Se modifica un registro
+        res = super(peticion_horas, self).write(vals)
+        for record in self:
+            if record.email_responsable:
+                try:
+                    mail = self.env['mail.mail'].create({
+                        'email_from': 'isamarrom@alu.edu.gva.es',
+                        'email_to': record.email_responsable,
+                        'subject': 'Actualización de petición de horas de libre disposición',
+                        'body_html': '<p>La petición de horas de libre disposición del empleado: %s, ha sido actualizada.</p>, se espera aprobación' % record.empleado_id,
+                    })
+                    mail.send()
+                except MailDeliveryException as e:
+                    raise UserError("Error al enviar el correo electrónico: %s" % str(e))
+                except Exception as e:
+                    raise UserError("Se produjo un error inesperado al enviar el correo electrónico: %s" % str(e))
+        return res
 
-    # @api.model
-    # def _get_bolsa_horas(self):
-    #     # Retorna el registro de bolsa_horas asociado al empleado
-    #     bolsa_horas = self.env['fichaje.bolsa_horas'].search([('empleado_id', '=', self.empleado_id.id)])
-    #     return bolsa_horas
-
-    # def _subtract_hours_from_bolsa_horas(self, hours_to_subtract):
-    #     # Resta horas del campo name de bolsa_horas
-    #     bolsa_horas = self._get_bolsa_horas()
-    #     bolsa_horas.name -= hours_to_subtract
-
-    # @api.model
-    # def _auto_subtract_hours(self):
-    #     # Método que se ejecuta automáticamente al día siguiente laborable de la fecha de disfrute
-    #     for peticion in self.search([('fecha_disfrute', '=', self._get_next_working_day(datetime.now().date()))]):
-    #         peticion._subtract_hours_from_bolsa_horas(peticion.numero_horas)
+    
+    def unlink(self):
+        records_with_emails = self.filtered(lambda r: r.email_responsable)
+        
+        for record in records_with_emails:
+            try:
+                mail = self.env['mail.mail'].create({
+                    'email_from': 'isamarrom@alu.edu.gva.es',
+                    'email_to': record.email_responsable,
+                    'subject': 'Eliminación de petición de horas de libre disposición',
+                    'body_html': '<p>La petición de horas de libre disposición del empleado: %s, se ha eliminado.</p>, ya no se espera aprobación' % record.empleado_id,
+                })
+                mail.send()
+            except MailDeliveryException as e:
+                raise UserError("Error al enviar el correo electrónico: %s" % str(e))
+            except Exception as e:
+                raise UserError("Se produjo un error inesperado al enviar el correo electrónico: %s" % str(e))
+    
+        # Llamamos a super().unlink() fuera del bucle for para que no se quede en un bucle infinito
+        return super().unlink()
