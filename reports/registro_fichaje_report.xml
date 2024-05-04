@@ -1,0 +1,42 @@
+<odoo>
+  <!-- name nombre de la accion -->
+  <record id="registro_fichaje_pdf_report" model="ir.actions.report">
+    <field name="name">Registro de fichaje</field>
+    <field name="model">fichaje.registro_fichaje</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">fichaje.report_registro_fichaje</field>
+    <field name="binding_model_id" ref="model_fichaje_registro_fichaje"/>
+    <field name="binding_type">report</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="print_report_name">'Ficha registro de fichaje - %s' % (object.name)</field>
+  </record>
+ 
+    
+  <template id="fichaje.report_registro_fichaje">
+    <t t-call="web.html_container">
+      <!-- por si se mandará a imprimir varios registro_fichajes -->
+      <t t-foreach="docs" t-as="record">
+         <t t-call="web.external_layout">
+          <div class="page">
+            <h2>Registro de fichaje</h2>
+            <p><span>Empleado:</span><t t-esc="record.name"/></p>
+            <p><span>Fecha:</span><t t-esc="record.fecha"/></p>
+            <p><span>Hora de entrada:</span><t t-esc="record.hora_entrada"/></p>
+            <p><span>Hora de salida:</span><t t-esc="record.hora_salida"/></p>
+
+
+             <h1><t t-esc="record.display_name"/></h1>
+            <dl>
+            <t t-foreach="record._fields" t-as="field">
+              <dt><t t-esc="field"/></dt>
+              <dd><t t-esc="record[field]"/></dd>
+            </t>
+          </dl>
+
+          </div>
+         </t>
+      </t>
+    </t>
+  </template>
+
+</odoo>

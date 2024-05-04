@@ -28,6 +28,9 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'reports/registro_fichaje_report.xml',
+        'reports/peticion_horas_report.xml',
+        'reports/bolsa_horas_report.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

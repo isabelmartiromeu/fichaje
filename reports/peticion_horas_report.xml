@@ -1,0 +1,47 @@
+<odoo>
+  <!-- name nombre de la accion -->
+  <record id="peticion_horas_pdf_report" model="ir.actions.report">
+    <field name="name">Registro de petición de horas de libre disposición</field>
+    <field name="model">fichaje.peticion_horas</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">fichaje.report_peticion_horas</field>
+    <field name="binding_model_id" ref="model_fichaje_peticion_horas"/>
+    <field name="binding_type">report</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="print_report_name">'Registro peticion_horas - %s' % (object.empleado_name)</field>
+  </record>
+ 
+    
+  <template id="fichaje.report_peticion_horas">
+    <t t-call="web.html_container">
+      <!-- por si se mandaran a imprimir varios peticion_horass -->
+      <t t-foreach="docs" t-as="record">
+         <t t-call="web.external_layout">
+          <div class="page">
+            <h2>peticion_horas</h2>
+
+            <p><span>Empleado:</span><t t-esc="record.empleado_name"/></p>
+            <p><span>Fecha disfrute:</span><t t-esc="record.fecha_disfrute"/></p>
+            <p><span>Comienzo hora disfrute:</span><t t-esc="record.hora_disfrute"/></p>
+            <p><span>Número de horas a disfrutar:</span><t t-esc="record.numero_horas"/></p>
+            <p><span>Estado:</span><t t-esc="record.estado"/></p>
+            <p><span>Email_responsable:</span><t t-esc="record.email_responsable"/></p>
+
+
+
+
+             <h1><t t-esc="record.display_name"/></h1>
+            <dl>
+            <t t-foreach="record._fields" t-as="field">
+              <dt><t t-esc="field"/></dt>
+              <dd><t t-esc="record[field]"/></dd>
+            </t>
+          </dl>
+
+          </div>
+         </t>
+      </t>
+    </t>
+  </template>
+
+</odoo>

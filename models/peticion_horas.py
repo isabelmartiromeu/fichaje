@@ -48,23 +48,9 @@ class peticion_horas(models.Model):
 
     email_responsable = fields.Char(string="Email responsable",default="isamarrom@alu.edu.gva.es",readonly=True)
 
-
-    # @api.onchange('fecha_disfrute')   #FUNCIONA
-    # def _onchange_fecha_disfrute(self):
-    #     for record in self:
-    #         if record.fecha_disfrute:
-    #             if record.fecha_disfrute.weekday() >= 5:  # sábado (5) o domingo (6)
-    #                 record.fecha_disfrute = False
-    #                 return {
-    #                     'warning': {
-    #                         'title': "Advertencia",
-    #                         'message': "La fecha debe ser de un día laborable",
-    #                         'type': 'notification'  # Cambia el tipo a 'notification' si quieres que sea permanente
-    #                     }
-    #                 }
-
     @api.onchange('fecha_disfrute')
     def _onchange_fecha_disfrute(self):
+    # Cuando se elija un día, se comprobará si es un día festivo o si es un día anterior al actual
         for record in self:
             if record.fecha_disfrute:
                 # Verifica si la fecha es un sábado (5) o domingo (6)
@@ -94,38 +80,48 @@ class peticion_horas(models.Model):
     def create(self, vals):
     # Se crea un registro 
         record = super(peticion_horas, self).create(vals)
-        if record.email_responsable:
-            try:
-                mail = self.env['mail.mail'].create({
-                    'email_from': 'isamarrom@alu.edu.gva.es',
-                    'email_to': record.email_responsable,
-                    'subject': 'Nuevo registro de petición de horas de libre disposición',
-                    'body_html': '<p>Se ha creado una nueva petición de horas de libre disposición del empleado: %s</p>, se espera aprobación' % record.empleado_id,
-                })
-                mail.send()
-            except MailDeliveryException as e:
-                raise UserError("Error al enviar el correo electrónico: %s" % str(e))
-            except Exception as e:
-                raise UserError("Se produjo un error inesperado al enviar el correo electrónico: %s" % str(e))
-        return record
-
-    def write(self, vals):
-    # Se modifica un registro
-        res = super(peticion_horas, self).write(vals)
-        for record in self:
+        # Comprueba que se pida alguna hora de disfrute
+        if record.numero_horas > 0:
             if record.email_responsable:
                 try:
                     mail = self.env['mail.mail'].create({
                         'email_from': 'isamarrom@alu.edu.gva.es',
                         'email_to': record.email_responsable,
-                        'subject': 'Actualización de petición de horas de libre disposición',
-                        'body_html': '<p>La petición de horas de libre disposición del empleado: %s, ha sido actualizada.</p>, se espera aprobación' % record.empleado_id,
+                        'subject': 'Nuevo registro de petición de horas de libre disposición',
+                        'body_html': '<p>Se ha creado una nueva petición de horas de libre disposición del empleado: %s</p>, se espera aprobación' % record.empleado_id,
                     })
                     mail.send()
                 except MailDeliveryException as e:
                     raise UserError("Error al enviar el correo electrónico: %s" % str(e))
                 except Exception as e:
                     raise UserError("Se produjo un error inesperado al enviar el correo electrónico: %s" % str(e))
+        else:
+            raise ValidationError("Debes pedir alguna hora de disfrute. No puede tener valor cero")
+
+        
+        return record
+
+    def write(self, vals):
+    # Se modifica un registro
+        res = super(peticion_horas, self).write(vals)
+        for record in self:
+            # Comprueba que se pida alguna hora de disfrute
+            if record.numero_horas > 0:
+                if record.email_responsable:
+                    try:
+                        mail = self.env['mail.mail'].create({
+                            'email_from': 'isamarrom@alu.edu.gva.es',
+                            'email_to': record.email_responsable,
+                            'subject': 'Actualización de petición de horas de libre disposición',
+                            'body_html': '<p>La petición de horas de libre disposición del empleado: %s, ha sido actualizada.</p>, se espera aprobación' % record.empleado_id,
+                        })
+                        mail.send()
+                    except MailDeliveryException as e:
+                        raise UserError("Error al enviar el correo electrónico: %s" % str(e))
+                    except Exception as e:
+                        raise UserError("Se produjo un error inesperado al enviar el correo electrónico: %s" % str(e))
+            else:
+                raise ValidationError("Debes pedir alguna hora de disfrute. No puede tener valor cero")
         return res
 
     
@@ -148,3 +144,6 @@ class peticion_horas(models.Model):
     
         # Llamamos a super().unlink() fuera del bucle for para que no se quede en un bucle infinito
         return super().unlink()
+
+    def imprimir_informe(self):
+	     return self.env.ref('mantenprev.peticion_horas_pdf_report').report_action(self)

@@ -37,15 +37,8 @@ class registro_fichaje(models.Model):
 
     def crea_fichaje_salida(self):
         self.hora_salida = fields.Datetime.now().strftime('%H:%M:%S')
-        # if self.hora_entrada and self.hora_salida:
-        #     h_entrada = datetime.strptime(self.hora_entrada, '%H:%M:%S')
-        #     h_salida = datetime.strptime(self.hora_salida, '%H:%M:%S')
-        #     # Calculamos la diferencia de tiempo
-        #     diferencia = h_salida - h_entrada
 
-        #     # Obtenemos la diferencia en horas enteras
-        #     horas_enteras =  math.floor(diferencia.total_seconds() // 3600)
-        #     if horas_enteras > 0:
-        #         bolsa_horas = self.env['fichaje.bolsa_horas'].search([('empleado_id', '=', self.empleado_id.name)])
-        #         bolsa_horas.horas += horas_enteras
+
+    def imprimir_informe(self):
+	     return self.env.ref('mantenprev.registro_fichaje_pdf_report').report_action(self)
 

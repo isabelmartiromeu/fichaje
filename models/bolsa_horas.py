@@ -42,3 +42,6 @@ class bolsa_horas(models.Model):
         if self.empleado_id:
             empleados = self.env['fichaje.empleado'].search([('code', '=', self.empleado_id.code)])
             self.code = empleados.code
+
+    def imprimir_informe(self):
+	     return self.env.ref('mantenprev.bolsa_horas_pdf_report').report_action(self)
