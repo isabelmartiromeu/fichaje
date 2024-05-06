@@ -53,8 +53,9 @@ class empleado(models.Model):
      la_bolsa_id = fields.Many2one('fichaje.bolsa_horas')
      la_bolsa_name = fields.Char(related = 'la_bolsa_id.code') 
 
-
-
+     # Un empleado puede tener muchas incidencias, pero una incidencia solo corresponde a un empleado
+     # empleado [1] - incidencia [N]
+     incidencia_ids = fields.One2many('fichaje.incidencia','empleado_id')
 
      # Actúan sobre un singleton
      _sql_constraints = [

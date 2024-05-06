@@ -69,6 +69,17 @@ class registro_fichaje(models.Model):
                             'empleado_id': self.empleado_id.id,
                             'horas': diferencia_horas,
                         })
+            else:
+                # Si no llega a las 8 horas trabajadas, crea un nuevo registro en el modelo incidencia
+                if self.empleado_id:
+                    incidencia_obj = self.env['fichaje.incidencia']
+                    incidencia_obj.create({
+                        'asunto': 'fichaje',  # Puedes cambiar esto según necesites
+                        'fecha_incidencia': fields.Date.today(),  # O usa la fecha que necesites
+                        'estado': 'pendiente',  # O usa el estado que necesites
+                        'observaciones': 'Horas insuficientes',  # O agrega observaciones según necesites
+                        'empleado_id': self.empleado_id.id,
+                    })
 
             # Actualizar la hora de salida en el registro de fichaje
             self.hora_salida = fields.Datetime.now().strftime('%H:%M')

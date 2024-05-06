@@ -114,22 +114,20 @@
       </field>
     </record>
 
-    <!-- <record model="ir.ui.view" id="fichaje.form_peticion_horas">
-      <field name="name">Listado de peticion de horas</field>
-      <field name="model">fichaje.peticion_horas</field>
+    <!-- Incidencias -->
+
+    <record model="ir.ui.view" id="fichaje.tree_incidencia">
+      <field name="name">Listado de incidencias</field>
+      <field name="model">fichaje.incidencia</field>
       <field name="arch" type="xml">
-        <form>
-          <group>
-            <field name="fecha_disfrute" />
-            <field name="hora_disfrute" />
-            <field name="numero_horas" />
+        <tree string="Incidencia" >
+            <field name="asunto" />
+            <field name="fecha_incidencia" />
             <field name="estado" />
-            <field name="empleado_name" />
-            <field name="email_responsable" />
-          </group>
-        </form>
+            <field name="observaciones" />
+        </tree>
       </field>
-    </record> -->
+    </record>
 
     <!-- actions opening views on models -->
 
@@ -157,7 +155,11 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-
+    <record model="ir.actions.act_window" id="fichaje.action_window_incidencia">
+      <field name="name">Incidencias</field>
+      <field name="res_model">fichaje.incidencia</field>
+      <field name="view_mode">tree,form</field>
+    </record>
 
 
     <!-- Top menu item -->
@@ -176,7 +178,10 @@
     <menuitem name="Empleado" id="fichaje.empleado_list" parent="fichaje.menu_1"
               action="fichaje.action_window_empleado"/>
 
-    <menuitem name="Petición bolsa" id="fichaje.peticion_horas_list" parent="fichaje.menu_1"
+    <menuitem name="Petición horas" id="fichaje.peticion_horas_list" parent="fichaje.menu_1"
               action="fichaje.action_window_peticion_horas"/>
+
+    <menuitem name="Incidencia" id="fichaje.incidencia_list" parent="fichaje.menu_1"
+              action="fichaje.action_window_incidencia"/>
   </data>
 </odoo>

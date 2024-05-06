@@ -3,3 +3,4 @@ access_fichaje_registro_fichaje,fichaje.registro_fichaje,model_fichaje_registro_
 access_fichaje_bolsa_horas,fichaje.bolsa_horas,model_fichaje_bolsa_horas,base.group_user,1,1,1,1
 access_fichaje_empleado,fichaje.empleado,model_fichaje_empleado,base.group_user,1,1,1,1
 access_fichaje_peticion_horas,fichaje.peticion_horas,model_fichaje_peticion_horas,base.group_user,1,1,1,1
+access_fichaje_incidencia,fichaje.incidencia,model_fichaje_incidencia,base.group_user,1,1,1,1
