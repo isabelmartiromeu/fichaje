@@ -1,0 +1,32 @@
+<odoo>
+  <data>
+    <record id="fichaje.category_group" model="ir.module.category">
+      <field name="name">Fichaje</field>
+    </record>
+
+    <record id="fichaje.grupo_empleados" model="res.groups">
+        <field name="name">Grupo Empleados para Fichaje</field>
+        <field name="comment">Permisos para el grupo de empleados.</field>
+        <field name="category_id" ref="fichaje.category_group"/>
+    </record>
+
+    <record id="fichaje.grupo_administracion" model="res.groups">
+        <field name="name">Grupo Administrativos para Fichaje</field>
+        <field name="comment">Permisos para el grupo de administrativos.</field>
+        <field name="category_id" ref="fichaje.category_group"/>
+    </record>
+
+    <record id="fichaje.grupo_rrhh" model="res.groups">
+        <field name="name">Grupo RRHH para Fichaje</field>
+        <field name="comment">Permisos para el grupo de rrhh.</field>
+        <field name="category_id" ref="fichaje.category_group"/>
+    </record>
+
+    <record id="fichaje.grupo_contabilidad" model="res.groups">
+        <field name="name">Grupo Contabilidad para Fichaje</field>
+        <field name="comment">Permisos para el grupo de contabilidad.</field>
+        <field name="category_id" ref="fichaje.category_group"/>
+    </record>
+
+  </data>
+</odoo>

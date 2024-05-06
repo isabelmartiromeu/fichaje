@@ -26,6 +26,8 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        'security/groups.xml',
+        'security/access.xml',
         'views/views.xml',
         'views/templates.xml',
         'reports/registro_fichaje_report.xml',
@@ -36,4 +38,5 @@
     'demo': [
         'demo/demo.xml',
     ],
+    'application': True,
 }
