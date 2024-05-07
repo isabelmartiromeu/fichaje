@@ -10,8 +10,6 @@ class bolsa_horas(models.Model):
 
     _name = 'fichaje.bolsa_horas'
     _description = 'fichaje.bolsa_horas'
-    # _rec_name = 'code'
-
 
     code = fields.Char(required = True, string='Código empleado', store=True)
     horas = fields.Integer(string='Horas de libre disposición')

@@ -1,0 +1,33 @@
+<!-- NO PODEMOS CARGAR ESTOS DATOS PORQUE SI NO DA ERROR AL MANDAR EL EMAIL AL RESPONSABLE -->
+
+<!-- <odoo>
+  <data >
+    <!-- Petición horas -->
+    <record model="fichaje.peticion_horas" id="fichaje.peticion_horas_1">
+      <field name="fecha_disfrute" eval="'2024-06-21'"/>
+      <field name="hora_disfrute">9</field>
+      <field name="numero_horas">1</field>
+      <field name="estado">pendiente</field>
+      <field name="empleado_id" ref="fichaje.empleado_1"/>
+      <field name="email_responsable">isamarrom@alu.edu.gva.es</field>
+    </record>
+
+    <record model="fichaje.peticion_horas" id="fichaje.peticion_horas_2">
+      <field name="fecha_disfrute" eval="'2024-06-21'"/>
+      <field name="hora_disfrute">10</field>
+      <field name="numero_horas">2</field>
+      <field name="estado">pendiente</field>
+      <field name="empleado_id" ref="fichaje.empleado_2"/>
+      <field name="email_responsable">isamarrom@alu.edu.gva.es</field>
+    </record>
+
+    <record model="fichaje.peticion_horas" id="fichaje.peticion_horas_3">
+      <field name="fecha_disfrute" eval="'2024-06-20'"/>
+      <field name="hora_disfrute">10</field>
+      <field name="numero_horas">1</field>
+      <field name="estado">pendiente</field>
+      <field name="empleado_id" ref="fichaje.empleado_3"/>
+      <field name="email_responsable">isamarrom@alu.edu.gva.es</field>
+    </record>
+  </data>
+</odoo> -->

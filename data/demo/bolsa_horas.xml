@@ -1,0 +1,28 @@
+<odoo>
+  <data >
+    <!-- Bolsa horas -->
+    <record model="fichaje.bolsa_horas" id="fichaje.bolsa_horas_1">
+      <field name="code">1</field>
+      <field name="horas">10</field>
+      <field name="empleado_id" ref="fichaje.empleado_1"/>
+    </record>
+
+    <record model="fichaje.bolsa_horas" id="fichaje.bolsa_horas_2">
+      <field name="code">2</field>
+      <field name="horas">12</field>
+      <field name="empleado_id" ref="fichaje.empleado_2"/>
+    </record>
+
+    <record model="fichaje.bolsa_horas" id="fichaje.bolsa_horas_3">
+      <field name="code">3</field>
+      <field name="horas">9</field>
+      <field name="empleado_id" ref="fichaje.empleado_3"/>
+    </record>
+
+    <record model="fichaje.bolsa_horas" id="fichaje.bolsa_horas_4">
+      <field name="code">4</field>
+      <field name="horas">5</field>
+      <field name="empleado_id" ref="fichaje.empleado_4"/>
+    </record>
+  </data>
+</odoo>

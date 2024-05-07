@@ -1,0 +1,61 @@
+<odoo>
+  <data >
+    <!-- Fichajes -->
+    <record model="fichaje.registro_fichaje" id="fichaje.fichaje_25_04_2024_Leonor">
+      <field name="fecha" eval="'2024-04-25'"/>
+      <field name="hora_entrada" eval="'8:00'"/>
+      <field name="hora_salida" eval="'17:00'"/>
+      <field name="empleado_id" ref="fichaje.empleado_1"/>
+    </record>
+
+    <record model="fichaje.registro_fichaje" id="fichaje.fichaje_26_04_2024_Leonor">
+      <field name="fecha" eval="'2024-04-26'"/>
+      <field name="hora_entrada" eval="'8:00'"/>
+      <field name="hora_salida" eval="'17:00'"/>
+      <field name="empleado_id" ref="fichaje.empleado_1"/>
+    </record>
+
+    <record model="fichaje.registro_fichaje" id="fichaje.fichaje_29_04_2024_Leonor">
+      <field name="fecha" eval="'2024-04-29'"/>
+      <field name="hora_entrada" eval="'8:00'"/>
+      <field name="hora_salida" eval="'16:00'"/>
+      <field name="empleado_id" ref="fichaje.empleado_1"/>
+    </record>
+
+    <record model="fichaje.registro_fichaje" id="fichaje.fichaje_30_04_2024_Leonor">
+      <field name="fecha" eval="'2024-04-30'"/>
+      <field name="hora_entrada" eval="'8:00'"/>
+      <field name="hora_salida" eval="'17:30'"/>
+      <field name="empleado_id" ref="fichaje.empleado_1"/>
+    </record>
+
+    <record model="fichaje.registro_fichaje" id="fichaje.fichaje_25_04_2024_Francisco">
+      <field name="fecha" eval="'2024-04-25'"/>
+      <field name="hora_entrada" eval="'8:00'"/>
+      <field name="hora_salida" eval="'17:05'"/>
+      <field name="empleado_id" ref="fichaje.empleado_2"/>
+    </record>
+
+    <record model="fichaje.registro_fichaje" id="fichaje.fichaje_26_04_2024_Francisco">
+      <field name="fecha" eval="'2024-04-26'"/>
+      <field name="hora_entrada" eval="'8:00'"/>
+      <field name="hora_salida" eval="'17:10'"/>
+      <field name="empleado_id" ref="fichaje.empleado_2"/>
+    </record>
+
+    <record model="fichaje.registro_fichaje" id="fichaje.fichaje_29_04_2024_Francisco">
+      <field name="fecha" eval="'2024-04-29'"/>
+      <field name="hora_entrada" eval="'8:00'"/>
+      <field name="hora_salida" eval="'16:30'"/>
+      <field name="empleado_id" ref="fichaje.empleado_2"/>
+    </record>
+
+    <record model="fichaje.registro_fichaje" id="fichaje.fichaje_30_04_2024_Francisco">
+      <field name="fecha" eval="'2024-04-30'"/>
+      <field name="hora_entrada" eval="'8:00'"/>
+      <field name="hora_salida" eval="'17:30'"/>
+      <field name="empleado_id" ref="fichaje.empleado_2"/>
+    </record>
+
+  </data>
+</odoo>

@@ -1,0 +1,40 @@
+<odoo>
+  <data >
+    <!-- Empleados -->
+    <record model="fichaje.empleado" id="fichaje.empleado_1">
+      <field name="name">Leonor Marti Romeu</field>
+      <field name="dni">47851236L</field>
+      <field name="fecha_nacimiento" eval="'1991-02-05'"/>
+      <field name="direccion">Calle de Colón num 54-3, Catarroja 46460</field>
+      <field name="movil">660314584</field>
+      <field name="fecha_comienzo_empresa" eval="'2024-06-05'"/>
+    </record>
+
+    <record model="fichaje.empleado" id="fichaje.empleado_2">
+      <field name="name">Francisco García Pérez</field>
+      <field name="dni">75841236P</field>
+      <field name="fecha_nacimiento" eval="'1980-11-09'"/>
+      <field name="direccion">Rambla de la Independencia num 120, Silla 46460</field>   
+      <field name="movil">677259740</field>
+      <field name="fecha_comienzo_empresa" eval="'2000-09-01'"/>
+    </record>
+
+    <record model="fichaje.empleado" id="fichaje.empleado_3">
+      <field name="name">Alba Sempere Álvarez</field>
+      <field name="dni">27851357V</field>
+      <field name="fecha_nacimiento" eval="'1982-12-04'"/>
+      <field name="direccion">Calle Catarroja num 60 - 4A, Paiporta 46200</field>   
+      <field name="movil">632275736</field>
+      <field name="fecha_comienzo_empresa" eval="'2010-11-01'"/>
+    </record>
+
+    <record model="fichaje.empleado" id="fichaje.empleado_4">
+      <field name="name">Isabel Martí Romeu</field>
+      <field name="dni">47851235M</field>
+      <field name="fecha_nacimiento" eval="'1991-02-05'"/>
+      <field name="direccion">C/ San Roque número 44, Catarroja 46460</field>
+      <field name="movil">650214578</field>
+      <field name="fecha_comienzo_empresa" eval="'2024-05-05'"/>
+    </record>
+  </data>
+</odoo>

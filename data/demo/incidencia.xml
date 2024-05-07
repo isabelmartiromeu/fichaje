@@ -1,0 +1,18 @@
+<odoo>
+  <data >
+    <!-- Incidencias -->
+    <record model="fichaje.incidencia" id="fichaje.incidencia_1">
+      <field name="fecha_incidencia" eval="'2024-04-29'"/>
+      <field name="estado">pendiente</field>
+      <field name="observaciones">Horas insuficientes</field>
+      <field name="empleado_id" ref="fichaje.empleado_1"/>
+    </record>
+
+    <record model="fichaje.incidencia" id="fichaje.incidencia_2">
+      <field name="fecha_incidencia" eval="'2024-04-29'"/>
+      <field name="estado">pendiente</field>
+      <field name="observaciones">Horas insuficientes</field>
+      <field name="empleado_id" ref="fichaje.empleado_2"/>
+    </record>
+  </data>
+</odoo>

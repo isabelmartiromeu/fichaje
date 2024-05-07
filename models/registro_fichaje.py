@@ -17,12 +17,10 @@ class registro_fichaje(models.Model):
 
     fecha = fields.Date(string='Fecha', required = True,default=date.today(),readonly=True) #Debe tener la fecha de cuando se entra
     _order = 'fecha'
-    # EL BUENO ES ESTE DE ARRIBA
-    # hora_entrada = fields.Char(string="Hora de entrada",readonly=True, required = True, default=lambda self:fields.Datetime.now().strftime('%H:%M:%S')) #Debe tener la hora de cuando se entra 
-    hora_entrada = fields.Char(string="Hora de entrada",required = True) #Debe tener la hora de cuando se entra 
 
+    hora_entrada = fields.Char(string="Hora de entrada",readonly=True, required = True, default=lambda self:fields.Datetime.now().strftime('%H:%M:%S')) #Debe tener la hora de cuando se entra 
 
-    hora_salida = fields.Char(string='Hora de salida') #No se debe poder rellenar
+    hora_salida = fields.Char(string='Hora de salida',readonly=True) #No se debe poder rellenar
     
      # Parte de la relación con FICHAJES
      # Un empleado puede realizar muchos fichajes, pero un fichaje pertenece a un solo empleado.

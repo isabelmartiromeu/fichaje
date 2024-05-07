@@ -32,7 +32,12 @@
         'views/templates.xml',
         'reports/registro_fichaje_report.xml',
         'reports/peticion_horas_report.xml',
-        'reports/bolsa_horas_report.xml'
+        'reports/bolsa_horas_report.xml',
+        'data/demo/empleado.xml',
+        'data/demo/registro_fichaje.xml',
+        'data/demo/bolsa_horas.xml',
+        #'data/demo/peticion_horas.xml',
+        'data/demo/incidencia.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

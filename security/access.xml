@@ -1,6 +1,6 @@
 <odoo>
   <data>
-
+    <!-- Acceso a la información sobre Incidencias -->
     <record id="fichaje.incidencia_validation_access_empleado" model="ir.model.access">
       <field name="name">Acceso de los empleados normales a incidencias</field>
       <field name="model_id" ref="model_fichaje_incidencia"/>
@@ -30,6 +30,117 @@
       <field name="perm_write">1</field>
       <field name="perm_unlink">1</field>
     </record>
+
+    <!-- Acceso a la información sobre la bolsa de horas de libre disposición -->
+    <record id="fichaje.bolsa_horas_validation_access_empleado" model="ir.model.access">
+      <field name="name">Acceso de los empleados normales a la bolsa de horas de libre disposición</field>
+      <field name="model_id" ref="model_fichaje_bolsa_horas"/>
+      <field name="group_id" ref="fichaje.grupo_empleados"/>
+      <field name="perm_read">1</field>
+      <field name="perm_create">0</field>
+      <field name="perm_write">0</field>
+      <field name="perm_unlink">0</field>
+    </record>
+
+    <record id="fichaje.bolsa_horas_validation_access_administracion" model="ir.model.access">
+      <field name="name">Acceso del departamento de administracion a la bolsa de horas de libre disposición</field>
+      <field name="model_id" ref="model_fichaje_bolsa_horas"/>
+      <field name="group_id" ref="fichaje.grupo_administracion"/>
+      <field name="perm_read">1</field>
+      <field name="perm_create">1</field>
+      <field name="perm_write">1</field>
+      <field name="perm_unlink">1</field>
+    </record>
+
+    <record id="fichaje.bolsa_horas_validation_access_rrhh" model="ir.model.access">
+      <field name="name">Acceso del departamento de RRHH a la bolsa de horas de libre disposición</field>
+      <field name="model_id" ref="model_fichaje_bolsa_horas"/>
+      <field name="group_id" ref="fichaje.grupo_rrhh"/>
+      <field name="perm_read">1</field>
+      <field name="perm_create">1</field>
+      <field name="perm_write">1</field>
+      <field name="perm_unlink">1</field>
+    </record>
+
+    <!-- Acceso a la información sobre la petición de horas de libre disposición -->
+    <record id="fichaje.peticion_horas_validation_access_empleado" model="ir.model.access">
+      <field name="name">Acceso de los empleados normales a la petición de horas de libre disposición</field>
+      <field name="model_id" ref="model_fichaje_peticion_horas"/>
+      <field name="group_id" ref="fichaje.grupo_empleados"/>
+      <field name="perm_read">1</field>
+      <field name="perm_create">1</field>
+      <field name="perm_write">1</field>
+      <field name="perm_unlink">1</field>
+    </record>
+
+    <record id="fichaje.peticion_horas_validation_access_administracion" model="ir.model.access">
+      <field name="name">Acceso del departamento de administracion a la petición de horas de libre disposición</field>
+      <field name="model_id" ref="model_fichaje_peticion_horas"/>
+      <field name="group_id" ref="fichaje.grupo_administracion"/>
+      <field name="perm_read">1</field>
+      <field name="perm_create">1</field>
+      <field name="perm_write">1</field>
+      <field name="perm_unlink">1</field>
+    </record>
+
+    <record id="fichaje.peticion_horas_validation_access_rrhh" model="ir.model.access">
+      <field name="name">Acceso del departamento de RRHH a la petición de horas de libre disposición</field>
+      <field name="model_id" ref="model_fichaje_peticion_horas"/>
+      <field name="group_id" ref="fichaje.grupo_rrhh"/>
+      <field name="perm_read">1</field>
+      <field name="perm_create">1</field>
+      <field name="perm_write">1</field>
+      <field name="perm_unlink">1</field>
+    </record>
+
+    <!-- Acceso a la información sobre los empleados -->
+    <record id="fichaje.empleado_validation_access_empleado" model="ir.model.access">
+      <field name="name">Acceso de los empleados normales a la información sobre los empleados</field>
+      <field name="model_id" ref="model_fichaje_empleado"/>
+      <field name="group_id" ref="fichaje.grupo_empleados"/>
+      <field name="perm_read">0</field>
+      <field name="perm_create">0</field>
+      <field name="perm_write">0</field>
+      <field name="perm_unlink">0</field>
+    </record>
+
+    <record id="fichaje.empleado_validation_access_administracion" model="ir.model.access">
+      <field name="name">Acceso del departamento de administracion a la información sobre los empleados</field>
+      <field name="model_id" ref="model_fichaje_empleado"/>
+      <field name="group_id" ref="fichaje.grupo_administracion"/>
+      <field name="perm_read">1</field>
+      <field name="perm_create">1</field>
+      <field name="perm_write">1</field>
+      <field name="perm_unlink">1</field>
+    </record>
+
+    <record id="fichaje.empleado_validation_access_rrhh" model="ir.model.access">
+      <field name="name">Acceso del departamento de RRHH a la información sobre los empleados</field>
+      <field name="model_id" ref="model_fichaje_empleado"/>
+      <field name="group_id" ref="fichaje.grupo_rrhh"/>
+      <field name="perm_read">1</field>
+      <field name="perm_create">1</field>
+      <field name="perm_write">1</field>
+      <field name="perm_unlink">1</field>
+    </record>
+
+    <!-- ************************************************************************* -->
+    <!-- Reglas de registro. Condiciones que se deben dar para que algo ocurra. 
+         Se ejecutan registro por registro.
+         Queremos que los usuarios solamente puedan ver su propia información      -->
+    <!-- ************************************************************************* -->
+
+    <record id="fichaje.registro_fichaje_empleado" model="ir.rule">
+      <field name="name">Acceso de los empleados a su información y no a la del resto de empleados</field>
+      <field name="model_id" ref="model_fichaje_registro_fichaje"/>
+      <field name="groups" eval="[(4, ref('fichaje.grupo_empleados'))]"/>
+      <field name="domain_force">[('id', '=', user.id)]</field> <!--REVISAR - OJO-->
+      <field name="perm_read">1</field>
+      <field name="perm_create">1</field>
+      <field name="perm_write">1</field>
+      <field name="perm_unlink">0</field>
+    </record>
+
 
   </data>
 </odoo>

@@ -14,10 +14,7 @@ class empleado(models.Model):
 
      _name = 'fichaje.empleado'
      _description = 'Empleado'
-     #_rec_name = 'code'
 
-
-     code = fields.Char(string='Código', required = True)
      name = fields.Char(string = 'Nombre', required = True)
      _order = 'name'
      
@@ -59,7 +56,6 @@ class empleado(models.Model):
 
      # Actúan sobre un singleton
      _sql_constraints = [
-          ('code_uniq_empleado', 'unique(code)', 'El CÓDIGO debe ser único'),
           ('nom_uniq_empleado', 'unique(name)', 'El NOMBRE debe ser único'),
           ('dni_uniq_empleado', 'unique(dni)', 'El DNI debe ser único'),
           ('movil_uniq_empleado', 'unique(movil)', 'El MOVIL debe ser único'),

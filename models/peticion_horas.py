@@ -1,9 +1,6 @@
 # # -*- coding: utf-8 -*-
 
-#import datetime
 from odoo import models, fields, api
-#from odoo.exceptions import ValidationError
-#from odoo.tools import date_utils
 from odoo.exceptions import ValidationError, UserError
 from odoo.addons.base.models.ir_mail_server import MailDeliveryException
 
