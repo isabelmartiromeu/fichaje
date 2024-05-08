@@ -71,6 +71,7 @@
             <field name="fecha_nacimiento" />
             <field name="movil" />
             <field name="fecha_comienzo_empresa" />
+            <field name="user_id" />
         </tree>
       </field>
     </record>
@@ -87,6 +88,7 @@
             <field name="fecha_nacimiento" />
             <field name="movil" />
             <field name="fecha_comienzo_empresa" />
+            <field name="user_id" />
             <field name="horas_libre_disposicion" />
             
           </group>

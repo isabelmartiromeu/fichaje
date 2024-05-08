@@ -8,6 +8,7 @@
       <field name="direccion">Calle de Colón num 54-3, Catarroja 46460</field>
       <field name="movil">660314584</field>
       <field name="fecha_comienzo_empresa" eval="'2024-06-05'"/>
+      <field name="user_id">lmarti</field> 
     </record>
 
     <record model="fichaje.empleado" id="fichaje.empleado_2">
@@ -17,6 +18,7 @@
       <field name="direccion">Rambla de la Independencia num 120, Silla 46460</field>   
       <field name="movil">677259740</field>
       <field name="fecha_comienzo_empresa" eval="'2000-09-01'"/>
+      <field name="user_id">fgarcia</field> 
     </record>
 
     <record model="fichaje.empleado" id="fichaje.empleado_3">
@@ -26,6 +28,7 @@
       <field name="direccion">Calle Catarroja num 60 - 4A, Paiporta 46200</field>   
       <field name="movil">632275736</field>
       <field name="fecha_comienzo_empresa" eval="'2010-11-01'"/>
+      <field name="user_id">asempere</field> 
     </record>
 
     <record model="fichaje.empleado" id="fichaje.empleado_4">
@@ -35,6 +38,7 @@
       <field name="direccion">C/ San Roque número 44, Catarroja 46460</field>
       <field name="movil">650214578</field>
       <field name="fecha_comienzo_empresa" eval="'2024-05-05'"/>
+      <field name="user_id">imarti</field> 
     </record>
   </data>
 </odoo>

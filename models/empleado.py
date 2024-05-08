@@ -25,6 +25,8 @@ class empleado(models.Model):
      movil = fields.Char(string = 'Movil', size = 9, required = True)
      fecha_comienzo_empresa =  fields.Date(string = 'Fecha comienzo en empresa')
 
+     user_id = fields.Char(string = 'Username', required = True)
+
 
      # Parte de la relación con FICHAJES
      # Un empleado puede realizar muchos fichajes, pero un fichaje pertenece a un solo empleado.
