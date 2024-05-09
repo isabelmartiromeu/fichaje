@@ -1,6 +1,4 @@
-<!-- NO PODEMOS CARGAR ESTOS DATOS PORQUE SI NO DA ERROR AL MANDAR EL EMAIL AL RESPONSABLE -->
-
-<!-- <odoo>
+<odoo>
   <data >
     <!-- Petición horas -->
     <record model="fichaje.peticion_horas" id="fichaje.peticion_horas_1">
@@ -10,7 +8,8 @@
       <field name="estado">pendiente</field>
       <field name="empleado_id" ref="fichaje.empleado_1"/>
       <field name="email_responsable">isamarrom@alu.edu.gva.es</field>
-      user_id
+      <field name="user_id">lmarti</field>
+      <field name="pendiente_notificar" eval="1"/>
     </record>
 
     <record model="fichaje.peticion_horas" id="fichaje.peticion_horas_2">
@@ -20,6 +19,8 @@
       <field name="estado">pendiente</field>
       <field name="empleado_id" ref="fichaje.empleado_2"/>
       <field name="email_responsable">isamarrom@alu.edu.gva.es</field>
+      <field name="user_id">fgarcia</field>
+      <field name="pendiente_notificar" eval="1"/>
     </record>
 
     <record model="fichaje.peticion_horas" id="fichaje.peticion_horas_3">
@@ -29,6 +30,8 @@
       <field name="estado">pendiente</field>
       <field name="empleado_id" ref="fichaje.empleado_3"/>
       <field name="email_responsable">isamarrom@alu.edu.gva.es</field>
+      <field name="user_id">asempere</field>
+      <field name="pendiente_notificar" eval="1"/>
     </record>
   </data>
-</odoo> -->
+</odoo>

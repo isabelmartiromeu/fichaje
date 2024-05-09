@@ -36,7 +36,7 @@
         'data/demo/empleado.xml',
         'data/demo/registro_fichaje.xml',
         'data/demo/bolsa_horas.xml',
-        #'data/demo/peticion_horas.xml',
+        'data/demo/peticion_horas.xml',
         'data/demo/incidencia.xml'
     ],
     # only loaded in demonstration mode

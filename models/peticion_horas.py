@@ -45,7 +45,7 @@ class peticion_horas(models.Model):
     user_id = fields.Char(related = 'empleado_id.user_id')
 
     email_responsable = fields.Char(string="Email responsable",default="isamarrom@alu.edu.gva.es",readonly=True)
-    pendiente_notificar = fields.Boolean(string="Pendiente de notificar", default=True)
+    pendiente_notificar = fields.Boolean(string="Pendiente de notificar", default=True, readonly=True)
 
     @api.onchange('fecha_disfrute')
     def _onchange_fecha_disfrute(self):
@@ -75,37 +75,22 @@ class peticion_horas(models.Model):
                         }
                     }
 
-    # def aviso_peticion_hora(self):
-    #     if record.numero_horas > 0:
-    #         if record.email_responsable:
-    #             try:
-    #                 mail = self.env['mail.mail'].create({
-    #                     'email_from': 'isamarrom@alu.edu.gva.es',
-    #                     'email_to': record.email_responsable,
-    #                     'subject': 'Nuevo registro de petición de horas de libre disposición',
-    #                     'body_html': '<p>Se ha creado una nueva petición de horas de libre disposición del empleado: %s</p>, se espera aprobación' % record.empleado_id,
-    #                 })
-    #                 mail.send()
-    #             except MailDeliveryException as e:
-    #                 raise UserError("Error al enviar el correo electrónico: %s" % str(e))
-    #             except Exception as e:
-    #                 raise UserError("Se produjo un error inesperado al enviar el correo electrónico: %s" % str(e))
-    #     else:
-    #         raise ValidationError("Debes pedir alguna hora de disfrute. No puede tener valor cero")
 
-    @api.model
-    def create(self, vals):
-    # Se crea un registro 
-        record = super(peticion_horas, self).create(vals)
-        # Comprueba que se pida alguna hora de disfrute
-        if record.numero_horas > 0:
-            if record.email_responsable:
+
+def actualizar_registros(self):
+    peticiones = self.env['fichaje.peticion_horas'].search([('pendiente_notificar', '=', True)])
+    for peticion in peticiones:
+        email_to = peticion.email_responsable
+        numero_horas = peticion.numero_horas
+        
+        if numero_horas > 0:
+            if email_to:
                 try:
                     mail = self.env['mail.mail'].create({
                         'email_from': 'isamarrom@alu.edu.gva.es',
-                        'email_to': record.email_responsable,
-                        'subject': 'Nuevo registro de petición de horas de libre disposición',
-                        'body_html': '<p>Se ha creado una nueva petición de horas de libre disposición del empleado: %s</p>, se espera aprobación' % record.empleado_id,
+                        'email_to': email_to,
+                        'subject': 'Revisión de petición de horas de libre disposición',
+                        'body_html': '<p>Se ha creado o modificado una petición de horas de libre disposición del empleado: %s</p>, se espera aprobación' % peticion.empleado_id,
                     })
                     mail.send()
                 except MailDeliveryException as e:
@@ -113,32 +98,58 @@ class peticion_horas(models.Model):
                 except Exception as e:
                     raise UserError("Se produjo un error inesperado al enviar el correo electrónico: %s" % str(e))
         else:
-            raise ValidationError("Debes pedir alguna hora de disfrute. No puede tener valor cero")
+            if email_to:
+                try:
+                    mail = self.env['mail.mail'].create({
+                        'email_from': 'isamarrom@alu.edu.gva.es',
+                        'email_to': email_to,
+                        'subject': 'Eliminación de petición de horas de libre disposición',
+                        'body_html': '<p>Se ha eliminado una petición de horas de libre disposición del empleado: %s</p>, se espera aprobación' % peticion.empleado_id,
+                    })
+                    mail.send()
+                except MailDeliveryException as e:
+                    raise UserError("Error al enviar el correo electrónico: %s" % str(e))
+                except Exception as e:
+                    raise UserError("Se produjo un error inesperado al enviar el correo electrónico: %s" % str(e))
 
-        
+        # Actualizar el campo pendiente_notificar a False
+        peticion.write({'pendiente_notificar': False, 'actualizar_registros': False})
+
+    return False
+
+
+
+    @api.model
+    def create(self, vals):
+    # Se crea un registro 
+        record = super(peticion_horas, self).create(vals)
+        # Comprueba que se pida alguna hora de disfrute
+        for registro in record:
+            if registro.numero_horas == 0:
+                raise ValidationError("Debes pedir alguna hora de disfrute. No puede tener valor cero")
+            else:
+                self.actualizar_registros()
+                # registro.pendiente_notificar=True
+
         return record
 
     def write(self, vals):
     # Se modifica un registro
         res = super(peticion_horas, self).write(vals)
-        for record in self:
-            # Comprueba que se pida alguna hora de disfrute
-            if record.numero_horas > 0:
-                if record.email_responsable:
-                    try:
-                        mail = self.env['mail.mail'].create({
-                            'email_from': 'isamarrom@alu.edu.gva.es',
-                            'email_to': record.email_responsable,
-                            'subject': 'Actualización de petición de horas de libre disposición',
-                            'body_html': '<p>La petición de horas de libre disposición del empleado: %s, ha sido actualizada.</p>, se espera aprobación' % record.empleado_id,
-                        })
-                        mail.send()
-                    except MailDeliveryException as e:
-                        raise UserError("Error al enviar el correo electrónico: %s" % str(e))
-                    except Exception as e:
-                        raise UserError("Se produjo un error inesperado al enviar el correo electrónico: %s" % str(e))
-            else:
-                raise ValidationError("Debes pedir alguna hora de disfrute. No puede tener valor cero")
+        if self.numero_horas == 0:
+             raise ValidationError("Debes pedir alguna hora de disfrute. No puede tener valor cero")
+        else:
+             self.actualizar_registros()
+            #  self.pendiente_notificar=True
+
+
+        # for record in res:
+        #     mi_numero_horas = record.numero_horas
+        #     if mi_numero_horas == 0:
+        #         raise ValidationError("Debes pedir alguna hora de disfrute. No puede tener valor cero")
+        #     else:
+        #         self.actualizar_registros()
+        #         record.pendiente_notificar=True
         return res
 
     
@@ -146,18 +157,9 @@ class peticion_horas(models.Model):
         records_with_emails = self.filtered(lambda r: r.email_responsable)
         
         for record in records_with_emails:
-            try:
-                mail = self.env['mail.mail'].create({
-                    'email_from': 'isamarrom@alu.edu.gva.es',
-                    'email_to': record.email_responsable,
-                    'subject': 'Eliminación de petición de horas de libre disposición',
-                    'body_html': '<p>La petición de horas de libre disposición del empleado: %s, se ha eliminado.</p>, ya no se espera aprobación' % record.empleado_id,
-                })
-                mail.send()
-            except MailDeliveryException as e:
-                raise UserError("Error al enviar el correo electrónico: %s" % str(e))
-            except Exception as e:
-                raise UserError("Se produjo un error inesperado al enviar el correo electrónico: %s" % str(e))
+            record.numero_horas = 0 #Con esto diferenciamos los registros que piden ser eliminados
+            record.pendiente_notificar=True
+
     
         # Llamamos a super().unlink() fuera del bucle for para que no se quede en un bucle infinito
         return super().unlink()
