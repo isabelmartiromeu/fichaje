@@ -41,9 +41,11 @@ class peticion_horas(models.Model):
      # empleado [1] : peticion_horas [N]
 
     empleado_id = fields.Many2one('fichaje.empleado')
-    empleado_name = fields.Char(related = 'empleado_id.name')
+    #empleado_name = fields.Char(related = 'empleado_id.name')
+    user_id = fields.Char(related = 'empleado_id.user_id')
 
     email_responsable = fields.Char(string="Email responsable",default="isamarrom@alu.edu.gva.es",readonly=True)
+    pendiente_notificar = fields.Boolean(string="Pendiente de notificar", default=True)
 
     @api.onchange('fecha_disfrute')
     def _onchange_fecha_disfrute(self):
@@ -72,6 +74,24 @@ class peticion_horas(models.Model):
                             'type': 'notification'  
                         }
                     }
+
+    # def aviso_peticion_hora(self):
+    #     if record.numero_horas > 0:
+    #         if record.email_responsable:
+    #             try:
+    #                 mail = self.env['mail.mail'].create({
+    #                     'email_from': 'isamarrom@alu.edu.gva.es',
+    #                     'email_to': record.email_responsable,
+    #                     'subject': 'Nuevo registro de petición de horas de libre disposición',
+    #                     'body_html': '<p>Se ha creado una nueva petición de horas de libre disposición del empleado: %s</p>, se espera aprobación' % record.empleado_id,
+    #                 })
+    #                 mail.send()
+    #             except MailDeliveryException as e:
+    #                 raise UserError("Error al enviar el correo electrónico: %s" % str(e))
+    #             except Exception as e:
+    #                 raise UserError("Se produjo un error inesperado al enviar el correo electrónico: %s" % str(e))
+    #     else:
+    #         raise ValidationError("Debes pedir alguna hora de disfrute. No puede tener valor cero")
 
     @api.model
     def create(self, vals):

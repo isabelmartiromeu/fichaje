@@ -36,4 +36,5 @@ class incidencia(models.Model):
      # Un empleado puede tener muchas incidencias, pero una incidencia solo corresponde a un empleado
      # empleado [1] - incidencia [N]
      empleado_id = fields.Many2one('fichaje.empleado')
-     empleado_name = fields.Char(related = 'empleado_id.name') 
+     #empleado_name = fields.Char(related = 'empleado_id.name') 
+     user_id = fields.Char(related = 'empleado_id.user_id')

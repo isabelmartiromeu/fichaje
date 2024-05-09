@@ -6,6 +6,7 @@
       <field name="estado">pendiente</field>
       <field name="observaciones">Horas insuficientes</field>
       <field name="empleado_id" ref="fichaje.empleado_1"/>
+      <field name="user_id">lmarti</field>
     </record>
 
     <record model="fichaje.incidencia" id="fichaje.incidencia_2">
@@ -13,6 +14,7 @@
       <field name="estado">pendiente</field>
       <field name="observaciones">Horas insuficientes</field>
       <field name="empleado_id" ref="fichaje.empleado_2"/>
+      <field name="user_id">fgarcia</field>
     </record>
   </data>
 </odoo>

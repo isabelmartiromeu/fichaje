@@ -10,6 +10,7 @@
       <field name="estado">pendiente</field>
       <field name="empleado_id" ref="fichaje.empleado_1"/>
       <field name="email_responsable">isamarrom@alu.edu.gva.es</field>
+      user_id
     </record>
 
     <record model="fichaje.peticion_horas" id="fichaje.peticion_horas_2">

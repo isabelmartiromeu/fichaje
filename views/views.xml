@@ -10,6 +10,7 @@
             <field name="hora_entrada"/>
             <field name="hora_salida"/>
             <field name="empleado_id"/>
+            <field name="user_id"/>
         </tree>
       </field>
     </record>
@@ -25,6 +26,7 @@
             <field name="hora_entrada"/>
             <field name="hora_salida"/>
             <field name="empleado_id"/>
+            <field name="user_id"/>
             <button string="Fichar salida" name="crea_fichaje_salida" type="object"/>
           </group>
         </form>
@@ -39,8 +41,9 @@
       <field name="arch" type="xml">
         <tree string="Bolsa" >
             <field name="code" />
-            <field name="horas" />
             <field name="empleado_id" />
+            <field name="user_id"/>
+            <field name="horas" />
         </tree>
       </field>
     </record>
@@ -52,8 +55,9 @@
         <form>
           <group>
             <field name="code"/>
+            <field name="empleado_id" />
+            <field name="user_id"/>
             <field name="horas"/>
-            <field name="empleado_id"/>
           </group>
         </form>
       </field>
@@ -108,8 +112,10 @@
             <field name="hora_disfrute" />
             <field name="numero_horas" />
             <field name="estado" />
-            <field name="empleado_name" />
+            <field name="empleado_id" />
+            <field name="user_id"/>
             <field name="email_responsable" />
+            <field name="pendiente_notificar" />
         </tree>
       </field>
     </record>
@@ -125,6 +131,7 @@
             <field name="fecha_incidencia" />
             <field name="estado" />
             <field name="observaciones" />
+            <field name="user_id" />
         </tree>
       </field>
     </record>

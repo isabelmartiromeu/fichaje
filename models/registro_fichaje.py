@@ -28,7 +28,7 @@ class registro_fichaje(models.Model):
 
     empleado_id = fields.Many2one('fichaje.empleado')
     name = fields.Char(related = 'empleado_id.name')
-    
+    user_id = fields.Char(related = 'empleado_id.user_id')
 
     _sql_constraints = [
         ('fecha_hora_empleado_uniq_fichaje', 'unique(fecha,hora_entrada,empleado_id)', 'La fecha y hora de entrada deben ser únicos para cada empleado'),

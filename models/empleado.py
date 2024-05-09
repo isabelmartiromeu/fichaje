@@ -52,6 +52,8 @@ class empleado(models.Model):
      la_bolsa_id = fields.Many2one('fichaje.bolsa_horas')
      la_bolsa_name = fields.Char(related = 'la_bolsa_id.code') 
 
+     
+
      # Un empleado puede tener muchas incidencias, pero una incidencia solo corresponde a un empleado
      # empleado [1] - incidencia [N]
      incidencia_ids = fields.One2many('fichaje.incidencia','empleado_id')
@@ -61,4 +63,5 @@ class empleado(models.Model):
           ('nom_uniq_empleado', 'unique(name)', 'El NOMBRE debe ser único'),
           ('dni_uniq_empleado', 'unique(dni)', 'El DNI debe ser único'),
           ('movil_uniq_empleado', 'unique(movil)', 'El MOVIL debe ser único'),
+          ('userid_uniq_empleado', 'unique(user_id)', 'El nombre de usuario debe ser único'),
      ]
