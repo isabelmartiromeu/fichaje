@@ -41,11 +41,12 @@ class registro_fichaje(models.Model):
             timezone_es = pytz.timezone('Europe/Madrid')
             hora_actual = fields.Datetime.now(timezone_es)
             # En formato string:
-            hora_salida_dt = hora_actual.strftime('%H:%M')
-            #En formato hora:
-            hora_salida_dt = datetime.strptime(hora_salida_dt, "%H:%M")
+            hora_salida_dt = hora_actual.strftime('%H:%M:%S')
 
-            hora_entrada_dt = datetime.strptime(self.hora_entrada, "%H:%M")
+            #En formato hora:
+            hora_salida_dt = datetime.strptime(hora_salida_dt, "%H:%M:%S")
+
+            hora_entrada_dt = datetime.strptime(self.hora_entrada, "%H:%M:%S")
 
             # Restamos la hora de salida menos la hora de entrada
             diferencia_horas = hora_salida_dt - hora_entrada_dt
