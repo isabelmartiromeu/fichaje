@@ -45,7 +45,9 @@ class peticion_horas(models.Model):
     user_id = fields.Char(related = 'empleado_id.user_id')
 
     email_responsable = fields.Char(string="Email responsable",default="isamarrom@alu.edu.gva.es",readonly=True)
-    pendiente_notificar = fields.Boolean(string="Pendiente de notificar", default=True, readonly=True)
+    # El siguiente campo no puede ser de solo lectura, ya que si no el cron no puede
+    # modificar su valor
+    pendiente_notificar = fields.Boolean(string="Pendiente de notificar", default=True)
 
     @api.onchange('fecha_disfrute')
     def _onchange_fecha_disfrute(self):
@@ -116,11 +118,7 @@ class peticion_horas(models.Model):
                         raise UserError("Se produjo un error inesperado al enviar el correo electrónico: %s" % str(e))
 
             # Actualizar el campo pendiente_notificar a False
-            peticion.write({'pendiente_notificar': False, 'realizar_avisos_peticion_horas': False})
-            peticion.pendiente_notificar=False
-
-        return False
-
+            peticion.write({'pendiente_notificar': False})
 
 
     @api.model

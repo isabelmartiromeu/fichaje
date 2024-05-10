@@ -81,7 +81,7 @@ class registro_fichaje(models.Model):
                     })
 
             # Actualizar la hora de salida en el registro de fichaje
-            self.hora_salida = fields.Datetime.now().strftime('%H:%M')
+            self.hora_salida = fields.Datetime.now().strftime('%H:%M:%S')
         
     def imprimir_informe(self):
 	     return self.env.ref('mantenprev.registro_fichaje_pdf_report').report_action(self)
